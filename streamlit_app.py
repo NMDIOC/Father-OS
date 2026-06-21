@@ -2,12 +2,13 @@ import streamlit as st
 import streamlit.components.v1 as components
 
 st.set_page_config(
-    page_title="FATHER-OS: ENGINE V5",
+    page_title="FATHER-OS: ARCHITECTURE FIXED",
     page_icon="🖥️",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
 
+# Ocultar UI de Streamlit
 st.markdown("""
     <style>
         #MainMenu {visibility: hidden;}
@@ -124,18 +125,46 @@ father_os_interface = """
             background: #1a1a26;
             height: 18px;
             border: 1px solid rgba(255,255,255,0.1);
+            overflow: hidden;
         }
 
         .bar-fill {
             height: 100%;
             background: var(--neon-green);
-            width: 0%; /* Controlado estrictamente por JS */
+            width: 0%;
         }
 
         .bar-fill.critical {
             background: var(--neon-red);
             box-shadow: 0 0 10px var(--neon-red);
         }
+
+        /* -------------------------------------------------- */
+        /* MOTOR DE ANIMACIÓN NATIVO POR HARDWARE (CSS)       */
+        /* -------------------------------------------------- */
+        @keyframes fillTo80 {
+            0% { width: 0%; }
+            100% { width: 80%; }
+        }
+
+        @keyframes fillTo100 {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        /* Asignación directa de animaciones con retención de estado final (forwards) */
+        #bar-int {
+            animation: fillTo80 2.5s cubic-bezier(0.1, 0.85, 0.25, 1) forwards;
+        }
+
+        #bar-payaso {
+            animation: fillTo100 2.5s cubic-bezier(0.1, 0.85, 0.25, 1) forwards;
+        }
+
+        #bar-molestoso {
+            animation: fillTo100 2.5s cubic-bezier(0.1, 0.85, 0.25, 1) forwards;
+        }
+        /* -------------------------------------------------- */
 
         .string-value {
             color: #00ffff;
@@ -167,7 +196,7 @@ father_os_interface = """
 
     <div class="interface-container">
         <header>
-            <h1>[ STREAMLIT_CORE_v5.0: HARDWARE_ANIMATION_FORCED ]</h1>
+            <h1>[ STREAMLIT_CORE_v5.5: HARDWARE_GPU_RENDER ]</h1>
             <p>ESTADO_DEL_NÚCLEO: <span class="blink" style="color: var(--neon-green);">DYNAMIC_OK</span> | ID: PAPÁ_MAIN</p>
         </header>
 
@@ -210,70 +239,48 @@ father_os_interface = """
     </div>
 
     <script>
-        // Matrix Background
+        // Matrix Background (Asegurado con control de errores)
         const canvas = document.getElementById('bg-canvas');
-        const ctx = canvas.getContext('2d');
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
-
-        const letters = '0123456789SYSTEMINITIALIZINGCORESTREAMLITOPTIMIZED';
-        const fontSize = 14;
-        const columns = canvas.width / fontSize;
-        const drops = Array(Math.floor(columns)).fill(1);
-
-        function drawMatrix() {
-            ctx.fillStyle = 'rgba(10, 10, 15, 0.05)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = '#00ff66';
-            ctx.font = fontSize + 'px monospace';
-
-            for (let i = 0; i < drops.length; i++) {
-                const text = letters[Math.floor(Math.random() * letters.length)];
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                    drops[i] = 0;
-                }
-                drops[i]++;
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            function resizeCanvas() {
+                canvas.width = window.innerWidth || 800;
+                canvas.height = window.innerHeight || 600;
             }
-        }
-        setInterval(drawMatrix, 33);
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
 
-        // MOTOR DE ANIMACIÓN POR SOFTWARE (JAVASCRIPT STEPPER)
-        let currentPct = 0;
-        function animateBars() {
-            if (currentPct <= 100) {
-                // Inteligencia frena en 80
-                if (currentPct <= 80) {
-                    document.getElementById('bar-int').style.width = currentPct + "%";
+            const letters = '0123456789SYSTEMINITIALIZINGCORESTREAMLITOPTIMIZED';
+            const fontSize = 14;
+            const columns = (canvas.width / fontSize) || 50;
+            const drops = Array(Math.floor(columns)).fill(1);
+
+            function drawMatrix() {
+                ctx.fillStyle = 'rgba(10, 10, 15, 0.05)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = '#00ff66';
+                ctx.font = fontSize + 'px monospace';
+
+                for (let i = 0; i < drops.length; i++) {
+                    const text = letters[Math.floor(Math.random() * letters.length)];
+                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                        drops[i] = 0;
+                    }
+                    drops[i]++;
                 }
-                // Las otras dos avanzan hasta 100
-                document.getElementById('bar-payaso').style.width = currentPct + "%";
-                document.getElementById('bar-molestoso').style.width = currentPct + "%";
-                
-                currentPct += 1.5; // Velocidad del incremento por cuadro
-                requestAnimationFrame(animateBars);
             }
+            setInterval(drawMatrix, 33);
         }
 
-        // Ejecutar animación tras un breve delay de carga estable
-        setTimeout(() => {
-            requestAnimationFrame(animateBars);
-        }, 400);
-
-        setTimeout(typeTerminal, 600);
-
+        // Script de terminal defensivo (No bloquea el render)
         const terminalText = [
             "> Inicializando subsistema de análisis de estadísticas familiares...",
             "> Procesando datos de entrada...",
             "> [ALERTA] Desbordamiento de enteros detectado en el parámetro: MOLESTOSO.",
             "> Reconfigurando búfer para admitir magnitudes superiores a 999...",
             "> Corrigiendo cadenas de caracteres: 'PAGASO' -> 'PAYASO'...",
-            "> Forzando renderizado secuencial de barras por software...",
+            "> Desplegando animaciones nativas CSS via GPU...",
             "> Datos validados correctamente.\n",
             "--------------------------------------------------",
             "SISTEMA DE SEGURIDAD NÚCLEO: ESPERA ESTABLECIDA",
@@ -284,9 +291,11 @@ father_os_interface = """
 
         let lineIndex = 0;
         let charIndex = 0;
-        const terminal = document.getElementById('terminal-output');
 
         function typeTerminal() {
+            const terminal = document.getElementById('terminal-output');
+            if (!terminal) return;
+
             if (lineIndex < terminalText.length) {
                 let currentLine = terminalText[lineIndex];
                 if (charIndex < currentLine.length) {
@@ -302,6 +311,7 @@ father_os_interface = """
                 terminal.scrollTop = terminal.scrollHeight;
             }
         }
+        setTimeout(typeTerminal, 400);
     </script>
 </body>
 </html>
