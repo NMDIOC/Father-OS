@@ -170,7 +170,7 @@ father_os_interface = """
             cursor: text;
         }
 
-        /* corrección estricta de visibilidad para el input */
+        /* Corrección estricta de visibilidad para el input */
         #terminal-key-input {
             background: transparent !important;
             border: none !important;
@@ -192,7 +192,7 @@ father_os_interface = """
 
     <div class="interface-container">
         <header>
-            <h1>[ STREAMLIT_CORE_v6.1: DECRYPTION_PATCH_APPLIED ]</h1>
+            <h1>[ STREAMLIT_CORE_v6.2: DECRYPTION_PATCH_APPLIED ]</h1>
             <p>ESTADO_DEL_NÚCLEO: <span class="blink" style="color: var(--neon-green);">DYNAMIC_OK</span> | ID: PAPÁ_MAIN</p>
         </header>
 
@@ -365,7 +365,7 @@ components.html(father_os_interface, height=520, scrolling=False)
 
 
 # =============================================================================
-# MOTOR DE LA BÚSQUEDA DEL TESORO (INTEGRADO BAJO EL IFRAME)
+# MOTOR DE LA BÚSQUEDA DEL TESORO
 # =============================================================================
 
 st.markdown("---")
@@ -496,25 +496,6 @@ if current_step <= len(quiz_data):
             
 else:
     st.balloons()
-    st.markdown("""
-        <div style='background-color: #101018; border: 2px solid #00ff66; padding: 30px; text-align: center; border-radius: 5px;'>
-            <h1 style='color: #00ff66; font-family: monospace;'>[ PROTOCOLO COMPLETADO CON ÉXITO ]</h1>
-            <p style='font-family: monospace; color: #e0e0e6; font-size: 1.2rem; margin-top: 15px;'>
-                Has superado todos los filtros de seguridad y trampas lógicas implementadas.
-            </p>
-            
-            <div style='background: rgba(0, 255, 102, 0.1); border: 1px dashed #00ff66; padding: 15px; margin: 20px auto; max-width: 550px;'>
-                <p style='font-family: monospace; color: #00ff66; font-size: 1.1rem; margin: 0;'>
-                    🔑 CLAVE GENERADA PARA CONSOLA SUPERIOR:
-                </p>
-                <h2 style='font-family: monospace; color: #00ffff; letter-spacing: 5px; margin: 10px 0; font-size: 2rem;'>9991100</h2>
-                <p style='font-family: monospace; color: #888899; font-size: 0.85rem; margin: 0;'>
-                    Introduce este código en el prompt interactivo de la consola de arriba para revelar el mensaje final.
-                </p>
-            </div>
-            
-            <p style='font-family: monospace; color: #00ffff; font-size: 1.2rem; font-weight: bold; margin-top: 20px;'>
-                TU REGALO FÍSICO ESTÁ OCULTO EN: [Escribe aquí el escondite real del regalo]
-            </p>
-        </div>
-    """, unsafe_allow_html=True)
+    # Cadena HTML continua corregida para evitar fallos de indentación en el parser de Markdown
+    victory_html = "<div style='background-color: #101018; border: 2px solid #00ff66; padding: 30px; text-align: center; border-radius: 5px;'><h1 style='color: #00ff66; font-family: monospace;'>[ PROTOCOLO COMPLETADO CON ÉXITO ]</h1><p style='font-family: monospace; color: #e0e0e6; font-size: 1.2rem; margin-top: 15px;'>Has superado todos los filtros de seguridad y trampas lógicas implementadas.</p><div style='background: rgba(0, 255, 102, 0.1); border: 1px dashed #00ff66; padding: 15px; margin: 20px auto; max-width: 550px;'><p style='font-family: monospace; color: #00ff66; font-size: 1.1rem; margin: 0;'>🔑 CLAVE GENERADA PARA CONSOLA SUPERIOR:</p><h2 style='font-family: monospace; color: #00ffff; letter-spacing: 5px; margin: 10px 0; font-size: 2rem;'>9991100</h2><p style='font-family: monospace; color: #888899; font-size: 0.85rem; margin: 0;'>Introduce este código en el prompt interactivo de la consola de arriba para revelar el mensaje final.</p></div><p style='font-family: monospace; color: #00ffff; font-size: 1.2rem; font-weight: bold; margin-top: 20px;'>TU REGALO FÍSICO ESTÁ OCULTO EN: [Escribe aquí el escondite real del regalo]</p></div>"
+    st.markdown(victory_html, unsafe_allow_html=True)
