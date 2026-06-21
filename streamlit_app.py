@@ -2,7 +2,7 @@ import streamlit as st
 import streamlit.components.v1 as components
 
 st.set_page_config(
-    page_title="FATHER-OS: SOLUCIÓN RENDER",
+    page_title="FATHER-OS: ENGINE V5",
     page_icon="🖥️",
     layout="wide",
     initial_sidebar_state="collapsed"
@@ -129,8 +129,7 @@ father_os_interface = """
         .bar-fill {
             height: 100%;
             background: var(--neon-green);
-            width: 0%; 
-            transition: width 2.5s cubic-bezier(0.1, 0.85, 0.25, 1);
+            width: 0%; /* Controlado estrictamente por JS */
         }
 
         .bar-fill.critical {
@@ -168,7 +167,7 @@ father_os_interface = """
 
     <div class="interface-container">
         <header>
-            <h1>[ STREAMLIT_CORE_v4.4: REFLUX_RESOLVED ]</h1>
+            <h1>[ STREAMLIT_CORE_v5.0: HARDWARE_ANIMATION_FORCED ]</h1>
             <p>ESTADO_DEL_NÚCLEO: <span class="blink" style="color: var(--neon-green);">DYNAMIC_OK</span> | ID: PAPÁ_MAIN</p>
         </header>
 
@@ -211,6 +210,7 @@ father_os_interface = """
     </div>
 
     <script>
+        // Matrix Background
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
 
@@ -243,14 +243,27 @@ father_os_interface = """
         }
         setInterval(drawMatrix, 33);
 
-        // FORZADO DE ANIMACIÓN DE CARGA (Solución al estado vacío)
+        // MOTOR DE ANIMACIÓN POR SOFTWARE (JAVASCRIPT STEPPER)
+        let currentPct = 0;
+        function animateBars() {
+            if (currentPct <= 100) {
+                // Inteligencia frena en 80
+                if (currentPct <= 80) {
+                    document.getElementById('bar-int').style.width = currentPct + "%";
+                }
+                // Las otras dos avanzan hasta 100
+                document.getElementById('bar-payaso').style.width = currentPct + "%";
+                document.getElementById('bar-molestoso').style.width = currentPct + "%";
+                
+                currentPct += 1.5; // Velocidad del incremento por cuadro
+                requestAnimationFrame(animateBars);
+            }
+        }
+
+        // Ejecutar animación tras un breve delay de carga estable
         setTimeout(() => {
-            requestAnimationFrame(() => {
-                document.getElementById('bar-int').style.width = "80%";
-                document.getElementById('bar-payaso').style.width = "100%";
-                document.getElementById('bar-molestoso').style.width = "100%";
-            });
-        }, 300);
+            requestAnimationFrame(animateBars);
+        }, 400);
 
         setTimeout(typeTerminal, 600);
 
@@ -260,6 +273,7 @@ father_os_interface = """
             "> [ALERTA] Desbordamiento de enteros detectado en el parámetro: MOLESTOSO.",
             "> Reconfigurando búfer para admitir magnitudes superiores a 999...",
             "> Corrigiendo cadenas de caracteres: 'PAGASO' -> 'PAYASO'...",
+            "> Forzando renderizado secuencial de barras por software...",
             "> Datos validados correctamente.\n",
             "--------------------------------------------------",
             "SISTEMA DE SEGURIDAD NÚCLEO: ESPERA ESTABLECIDA",
