@@ -156,7 +156,6 @@ father_os_interface = """
             margin-top: 2px;
         }
 
-        /* Consola optimizada para entrada de texto */
         .terminal {
             background: #050508;
             border: 1px solid var(--neon-green);
@@ -170,6 +169,21 @@ father_os_interface = """
             line-height: 1.5;
             cursor: text;
         }
+
+        /* corrección estricta de visibilidad para el input */
+        #terminal-key-input {
+            background: transparent !important;
+            border: none !important;
+            color: #00ffff !important;
+            caret-color: #00ffff !important;
+            font-family: 'Courier New', monospace !important;
+            font-size: 1.05rem !important;
+            outline: none !important;
+            width: 180px !important;
+            height: 24px !important;
+            display: inline-block !important;
+            padding: 0 5px !important;
+        }
     </style>
 </head>
 <body>
@@ -178,7 +192,7 @@ father_os_interface = """
 
     <div class="interface-container">
         <header>
-            <h1>[ STREAMLIT_CORE_v6.0: DECRYPTION_MATRIX_READY ]</h1>
+            <h1>[ STREAMLIT_CORE_v6.1: DECRYPTION_PATCH_APPLIED ]</h1>
             <p>ESTADO_DEL_NÚCLEO: <span class="blink" style="color: var(--neon-green);">DYNAMIC_OK</span> | ID: PAPÁ_MAIN</p>
         </header>
 
@@ -222,7 +236,7 @@ father_os_interface = """
             
             <div id="terminal-input-row" style="display: none; margin-top: 15px;">
                 <span style="color: var(--neon-green); font-weight: bold;">> INTRODUCE LA CLAVE DE 7 DÍGITOS:</span> 
-                <input type="text" id="terminal-key-input" maxlength="7" style="background: transparent; border: none; color: #00ffff; font-family: 'Courier New', monospace; font-size: 1.05rem; outline: none; width: 150px;" autocomplete="off" autofocus>
+                <input type="text" id="terminal-key-input" maxlength="7" autocomplete="off" autofocus>
             </div>
 
             <div id="decryption-result" style="display: none; margin-top: 30px; border-top: 1px dashed #00ffff; padding-top: 20px; text-align: center;">
@@ -233,7 +247,6 @@ father_os_interface = """
     </div>
 
     <script>
-        // Matrix Background
         const canvas = document.getElementById('bg-canvas');
         if (canvas) {
             const ctx = canvas.getContext('2d');
@@ -267,7 +280,6 @@ father_os_interface = """
             setInterval(drawMatrix, 33);
         }
 
-        // Script de la terminal con llamada al Input interactivo
         const terminalText = [
             "> Inicializando subsistema de análisis de estadísticas familiares...",
             "> Procesando datos de entrada...",
@@ -275,10 +287,10 @@ father_os_interface = """
             "> Reconfigurando búfer para admitir magnitudes superiores a 999...",
             "> Corrigiendo cadenas de caracteres: 'PAGASO' -> 'PAYASO'...",
             "> Desplegando animaciones nativas CSS via GPU...",
-            "> Datos validados correctamente.\n",
+            "> Datos validados correctamente.\\n",
             "--------------------------------------------------",
             "SISTEMA DE SEGURIDAD NÚCLEO: ENCRIPTADO ACTIVADO",
-            "--------------------------------------------------\n",
+            "--------------------------------------------------\\n",
             "> El núcleo principal requiere autenticación externa de 7 dígitos.",
             "> Completa el protocolo inferior para generar la firma criptográfica..."
         ];
@@ -305,7 +317,6 @@ father_os_interface = """
                 }
                 container.scrollTop = container.scrollHeight;
             } else {
-                // Al finalizar las líneas de texto, se muestra el cuadro de entrada
                 const inputRow = document.getElementById('terminal-input-row');
                 const keyInput = document.getElementById('terminal-key-input');
                 if (inputRow && keyInput) {
@@ -316,13 +327,11 @@ father_os_interface = """
         }
         setTimeout(typeTerminal, 400);
 
-        // Controlador lógico del Input de Desencriptación
         setTimeout(() => {
             const keyInput = document.getElementById('terminal-key-input');
             const container = document.getElementById('terminal-container');
             
             if (container && keyInput) {
-                // Si hace click en la terminal, se re-enfoca el input automáticamente
                 container.addEventListener('click', () => keyInput.focus());
                 
                 keyInput.addEventListener('keydown', function(e) {
