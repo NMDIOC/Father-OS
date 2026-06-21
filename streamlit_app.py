@@ -1,15 +1,15 @@
 import streamlit as st
 import streamlit.components.v1 as components
 
-# 1. Configuración de la aplicación Streamlit
+# Configuración de la aplicación Streamlit
 st.set_page_config(
-    page_title="FATHER-OS: CORE SYSTEM",
+    page_title="FATHER-OS: CONFIGURACIÓN ACTUALIZADA",
     page_icon="🖥️",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
 
-# 2. Inyección de CSS para ocultar elementos nativos de Streamlit (Header, Footer, Padding)
+# Inyección de CSS para ocultar elementos nativos de Streamlit
 st.markdown("""
     <style>
         #MainMenu {visibility: hidden;}
@@ -28,7 +28,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# 3. Interfaz de Alto Impacto (HTML5 Canvas + CSS Grid + JS Engine)
+# Interfaz con las nuevas métricas implementadas
 father_os_interface = """
 <!DOCTYPE html>
 <html lang="es">
@@ -37,6 +37,7 @@ father_os_interface = """
     <style>
         :root {
             --neon-green: #00ff66;
+            --neon-red: #ff3333;
             --dark-bg: #0a0a0f;
             --panel-bg: rgba(16, 16, 24, 0.85);
             --text-color: #e0e0e6;
@@ -71,7 +72,7 @@ father_os_interface = """
             position: relative;
             z-index: 2;
             display: grid;
-            grid-template-columns: 1fr 2fr;
+            grid-template-columns: 1.2fr 2fr;
             grid-template-rows: auto 1fr;
             gap: 20px;
             height: 100vh;
@@ -99,7 +100,7 @@ father_os_interface = """
             border-radius: 4px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 22px;
         }
 
         .stats-title {
@@ -112,7 +113,13 @@ father_os_interface = """
         .stat-row {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 6px;
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
         }
 
         .bar-container {
@@ -127,6 +134,22 @@ father_os_interface = """
             background: var(--neon-green);
             width: 0%; 
             transition: width 2.5s cubic-bezier(0.1, 1, 0.1, 1);
+        }
+
+        /* Estilo específico para sobrecarga crítica */
+        .bar-fill.critical {
+            background: var(--neon-red);
+            box-shadow: 0 0 10px var(--neon-red);
+        }
+
+        .string-value {
+            color: #00ffff;
+            font-weight: bold;
+            padding: 2px 5px;
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            width: fit-content;
+            margin-top: 2px;
         }
 
         .terminal {
@@ -149,38 +172,56 @@ father_os_interface = """
 
     <div class="interface-container">
         <header>
-            <h1>[ STREAMLIT_CORE_v4.0: ACCESO INTEGRAL ]</h1>
-            <p>ESTADO_DEL_NÚCLEO: <span class="blink" style="color: var(--neon-green);">DYNAMIC_OK</span> | MÓDULO: PAPÁ_MAIN</p>
+            <h1>[ STREAMLIT_CORE_v4.2: DIAGNÓSTICO EN TIEMPO REAL ]</h1>
+            <p>ESTADO_DEL_NÚCLEO: <span class="blink" style="color: var(--neon-green);">DYNAMIC_OK</span> | ID: PAPÁ_MAIN</p>
         </header>
 
-        <!-- PANEL DE ATRIBUTOS -->
+        <!-- PANEL DE ATRIBUTOS MODIFICADO -->
         <div class="panel">
-            <h2 class="stats-title">> COMPILACIÓN_DE_MÉTRICAS</h2>
+            <h2 class="stats-title">> MÉTRICAS_DE_RENDIMIENTO</h2>
             
+            <!-- Inteligencia -->
             <div class="stat-row">
-                <label>SABIDURÍA / LÓGICA APLICADA:</label>
-                <div class="bar-container"><div class="bar-fill" data-width="98%"></div></div>
+                <div class="stat-header">
+                    <label>INTELIGENCIA:</label>
+                    <span>80/100</span>
+                </div>
+                <div class="bar-container"><div class="bar-fill" data-width="80%"></div></div>
             </div>
+
+            <!-- Modo Adaptativo -->
             <div class="stat-row">
-                <label>RESOLUCIÓN DE PROBLEMAS FAMILIARES:</label>
+                <div class="stat-header">
+                    <label>MODO ADAPTATIVO:</label>
+                </div>
+                <div class="string-value">"Adaptate TU !"</div>
+            </div>
+
+            <!-- Nivel de pagaso -->
+            <div class="stat-row">
+                <div class="stat-header">
+                    <label>NIVEL DE PAGASO:</label>
+                    <span>100/100</span>
+                </div>
                 <div class="bar-container"><div class="bar-fill" data-width="100%"></div></div>
             </div>
+
+            <!-- Molestoso (Sobrecarga de Sistema) -->
             <div class="stat-row">
-                <label>INGENIERÍA GASTRONÓMICA / ASADOS:</label>
-                <div class="bar-container"><div class="bar-fill" data-width="95%"></div></div>
-            </div>
-            <div class="stat-row">
-                <label>SOPORTE Y OPTIMIZACIÓN CONTINUA:</label>
-                <div class="bar-container"><div class="bar-fill" data-width="97%"></div></div>
+                <div class="stat-header" style="color: var(--neon-red);">
+                    <label>MOLESTOSO:</label>
+                    <span class="blink">999/100 [CRITICAL]</span>
+                </div>
+                <div class="bar-container"><div class="bar-fill critical" data-width="100%"></div></div>
             </div>
         </div>
 
-        <!-- TERMINAL DE COMANDOS CRÍPTICOS -->
+        <!-- TERMINAL DE COMANDOS (Estructura base lista) -->
         <div class="terminal" id="terminal-output"></div>
     </div>
 
     <script>
-        // Matrix Render Engine
+        // Matrix Background Engine
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
 
@@ -213,7 +254,7 @@ father_os_interface = """
         }
         setInterval(drawMatrix, 33);
 
-        // Activación de barras de carga
+        // Carga síncrona de las barras de progreso
         window.onload = () => {
             setTimeout(() => {
                 document.querySelectorAll('.bar-fill').forEach(bar => {
@@ -223,24 +264,18 @@ father_os_interface = """
             typeTerminal();
         };
 
-        // Secuencia de desencriptación en terminal
+        // Servidor temporal de texto para la consola (Estructura base)
         const terminalText = [
-            "> Inicializando entorno de ejecución Python 3.11...",
-            "> Cargando dependencias: Streamlit (v1.35), NumPy, CoreFamiliar...",
-            "> Estableciendo conexión segura con el nodo raíz: PAPÁ...",
-            "> [OK] Conexión establecida bajo protocolo criptográfico.",
-            "> Extrayendo bloque de datos confidenciales de la memoria flash...",
-            "> Desencriptando transmisión... Por favor, espere.\n",
+            "> Inicializando subsistema de análisis de estadísticas familiares...",
+            "> Procesando datos de entrada...",
+            "> [ALERTA] Desbordamiento de enteros detectado en el parámetro: MOLESTOSO.",
+            "> Reconfigurando búfer para admitir magnitudes superiores a 999...",
+            "> Datos validados correctamente.\n",
             "--------------------------------------------------",
-            "  SISTEMA CENTRAL: ¡FELIZ DÍA DEL PADRE!",
+            "SISTEMA DE SEGURIDAD NÚCLEO: ESPERA ESTABLECIDA",
             "--------------------------------------------------\n",
-            "Papá:",
-            "Este entorno fue programado y optimizado específicamente",
-            "para reconocer tu impacto en mi código de vida.",
-            "Gracias por ser la guía estructural, el soporte técnico",
-            "en los momentos difíciles y la lógica detrás de mis pasos.",
-            "Tu arquitectura como padre no tiene bugs.",
-            "\n> Proceso finalizado. El sistema continuará ejecutándose en bucle indefinido."
+            "> Esperando inyección del bloque de texto final...",
+            "> Listo para procesar la cadena de desencriptación personalizada."
         ];
 
         let lineIndex = 0;
@@ -253,12 +288,12 @@ father_os_interface = """
                 if (charIndex < currentLine.length) {
                     terminal.innerHTML += currentLine.charAt(charIndex);
                     charIndex++;
-                    setTimeout(typeTerminal, 20); 
+                    setTimeout(typeTerminal, 15); 
                 } else {
                     terminal.innerHTML += "\\n";
                     lineIndex++;
                     charIndex = 0;
-                    setTimeout(typeTerminal, 180); 
+                    setTimeout(typeTerminal, 150); 
                 }
                 terminal.scrollTop = terminal.scrollHeight;
             }
@@ -268,5 +303,5 @@ father_os_interface = """
 </html>
 """
 
-# 4. Renderizado del componente a pantalla completa dentro del Viewport
+# Renderizado del layout
 components.html(father_os_interface, height=1000, scrolling=False)
