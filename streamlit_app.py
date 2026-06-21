@@ -318,3 +318,153 @@ father_os_interface = """
 """
 
 components.html(father_os_interface, height=1000, scrolling=False)
+
+# =============================================================================
+# MOTOR DE LA BÚSQUEDA DEL TESORO (PEGAR AL FINAL DEL ARCHIVO)
+# =============================================================================
+
+st.markdown("---")
+st.markdown("<h2 style='color: #00ff66; font-family: monospace; text-align: center;'>[ ACCESO A SUBRUTINA: BÚSQUEDA DEL TESORO ]</h2>", unsafe_allow_html=True)
+
+# Inicialización de la máquina de estados en Streamlit
+if 'hunt_level' not in st.session_state:
+    st.session_state['hunt_level'] = 1
+
+# Base de datos criptográfica de preguntas trampa
+quiz_data = {
+    1: {
+        "rango": "MEDIO",
+        "pregunta": "Un bate y una pelota cuestan $1.10 en total. El bate cuesta $1.00 más que la pelota. ¿Cuánto cuesta la pelota?",
+        "instruccion": "Responde solo con el valor numérico decimal (ej: 0.50).",
+        "soluciones": ["0.05", ".05"],
+        "fail_hint": "Si pensaste en 0.10, la diferencia sería de $0.90, no de $1.00. Revisa el álgebra elemental."
+    },
+    2: {
+        "rango": "MEDIO",
+        "pregunta": "Si 5 máquinas hacen 5 artículos en 5 minutos, ¿cuánto tiempo tardan 100 máquinas en hacer 100 artículos?",
+        "instruccion": "Responde solo con el número entero de minutos.",
+        "soluciones": ["5"],
+        "fail_hint": "La tasa de producción es constante. Cada máquina tarda 5 minutos en hacer un artículo de forma independiente."
+    },
+    3: {
+        "rango": "MEDIO",
+        "pregunta": "En un lago hay un parche de nenúfares que duplica su tamaño cada día. Si tarda 48 días en cubrir todo el lago, ¿cuántos días tarda en cubrir exactamente la mitad?",
+        "instruccion": "Responde solo con el número entero de días.",
+        "soluciones": ["47"],
+        "fail_hint": "Si se duplica cada día, el día anterior al final (48 - 1) estaba exactamente a la mitad."
+    },
+    4: {
+        "rango": "MEDIO",
+        "pregunta": "Divide 30 por 0.5 y súmale 10. ¿Cuál es el resultado final?",
+        "instruccion": "Responde solo con el número entero resultante.",
+        "soluciones": ["70"],
+        "fail_hint": "Dividir por 0.5 es matemáticamente equivalente a multiplicar por 2. No es lo mismo que dividir entre 2."
+    },
+    5: {
+        "rango": "MEDIO",
+        "pregunta": "Un granjero tiene 17 ovejas. Todas menos 9 mueren debido a un error de ejecución en el servidor. ¿Cuántas ovejas vivas le quedan?",
+        "instruccion": "Responde solo con el número entero.",
+        "soluciones": ["9"],
+        "fail_hint": "Lee la sintaxis de la frase con cuidado: 'Todas menos 9 mueren'."
+    },
+    6: {
+        "rango": "MEDIO",
+        "pregunta": "¿Cuántos ladrillos se necesitan exactamente para completar una casa de ladrillos de un solo piso?",
+        "instruccion": "Responde en texto plano, minúsculas y sin puntos.",
+        "soluciones": ["el ultimo", "el último"],
+        "fail_hint": "Trampa lingüística. No es un cálculo de volumen, es una secuencia temporal."
+    },
+    7: {
+        "rango": "MEDIO",
+        "pregunta": "Si dos pintores pueden pintar dos habitaciones en dos horas, ¿cuántos pintores se necesitan para pintar 18 habitaciones en 18 horas?",
+        "instruccion": "Responde solo con el número entero de pintores.",
+        "soluciones": ["2"],
+        "fail_hint": "La capacidad de procesamiento no cambia. Dos pintores siguen haciendo el mismo ratio por hora de forma lineal."
+    },
+    8: {
+        "rango": "MEDIO",
+        "pregunta": "Un avión comercial se estrella exactamente en la frontera entre Chile y Argentina. ¿En qué país se debe enterrar legalmente a los sobrevivientes?",
+        "instruccion": "Responde con una frase corta en minúsculas.",
+        "soluciones": ["no se entierran", "a los sobrevivientes no se les entierra", "ninguno"],
+        "fail_hint": "Analiza el estado del objeto antes de aplicar la función de entierro: son sobrevivientes."
+    },
+    9: {
+        "rango": "MEDIO",
+        "pregunta": "Tengo 3 manzanas en memoria local. Si tú vienes y me quitas 2, ¿cuántas manzanas tienes tú?",
+        "instruccion": "Responde solo con el número entero.",
+        "soluciones": ["2"],
+        "fail_hint": "La pregunta interroga sobre tus recursos asignados, no sobre los míos."
+    },
+    10: {
+        "rango": "MEDIO",
+        "pregunta": "Un caracol sube por un pozo de 10 metros. Cada día sube 3 metros, pero cada noche resbala 2 metros hacia abajo. ¿En cuántos días saldrá del pozo?",
+        "instruccion": "Responde solo con el número de días.",
+        "soluciones": ["8"],
+        "fail_hint": "En el día 7 llega a los 8 metros. Al día 8 sube 3 metros, alcanzando los 11 metros y saliendo del pozo ANTES de que llegue la noche para resbalar."
+    },
+    11: {
+        "rango": "DIFÍCIL",
+        "pregunta": "En un cajón completamente oscuro hay 2 pares de calcetines negros y 2 pares de calcetines blancos. ¿Cuál es el número mínimo de calcetines individuales que debes extraer para asegurar con 100% de certeza que tienes al menos un par del mismo color?",
+        "instruccion": "Responde solo con el número entero.",
+        "soluciones": ["3"],
+        "fail_hint": "Principio del palomar. Solo existen 2 estados de color posibles. Al extraer el tercero, inevitablemente colisiona con uno de los dos anteriores."
+    },
+    12: {
+        "rango": "DIFÍCIL",
+        "pregunta": "Si un reloj de pared tarda exactamente 6 segundos en dar las 6 campanadas de las 6:00, ¿cuánto tiempo tardará en dar las 12 campanadas de las 12:00?",
+        "instruccion": "Responde solo con el valor decimal usando punto (ej: 12.5).",
+        "soluciones": ["13.2"],
+        "fail_hint": "El tiempo transcurre en los INTERVALOS entre campanadas. 6 campanadas tienen 5 intervalos (6s / 5 = 1.2s por intervalo). Calcula para 11 intervalos."
+    },
+    13: {
+        "rango": "SUPER DIFÍCIL",
+        "pregunta": "Dada la ecuación funcional f(x) + 2f(1/x) = 3x para todo x real diferente de cero. Encuentra el valor exacto de f(2).",
+        "instruccion": "Responde solo con el número entero (puede incluir signo negativo si aplica).",
+        "soluciones": ["-1"],
+        "fail_hint": "No intentes resolver la función general f(x). Crea un sistema de ecuaciones lineales de 2x2 evaluando la expresión en x=2 y en x=1/2, luego despeja f(2)."
+    }
+}
+
+current_step = st.session_state['hunt_level']
+
+# Interfaz de ejecución del juego
+if current_step <= len(quiz_data):
+    node = quiz_data[current_step]
+    
+    # Renderizado del panel de control del juego
+    st.markdown(f"""
+        <div style='background-color: #101018; border: 1px solid #00ff66; padding: 20px; border-radius: 5px; margin-bottom: 15px;'>
+            <span style='background-color: {"#ff3333" if node["rango"] != "MEDIO" else "#00ff66"}; color: black; padding: 2px 6px; font-weight: bold; font-family: monospace;'>
+                NIVEL {current_step} - RANGO: {node["rango"]}
+            </span>
+            <p style='font-family: monospace; font-size: 1.1rem; margin-top: 15px; color: #ffffff;'>{node["pregunta"]}</p>
+            <p style='color: #00ffff; font-family: monospace; font-size: 0.85rem;'>* Instrucción: {node["instruccion"]}</p>
+        </div>
+    """, unsafe_allow_html=True)
+    
+    # Input de datos y procesamiento
+    user_ans = st.text_input("Introduce la clave de desencriptación:", key=f"hunt_in_{current_step}")
+    
+    if st.button("PROCESAR RESPUESTA ➔", key=f"btn_{current_step}"):
+        clean_ans = user_ans.lower().strip()
+        if clean_ans in node["soluciones"]:
+            st.toast("ACCESO PERMITIDO. Cargando siguiente nodo...", icon="✅")
+            st.session_state['hunt_level'] += 1
+            st.rerun()
+        else:
+            st.error(f"ERROR DE VERIFICACIÓN. Código incorrecto.\n\nPISTA DEL SISTEMA: {node['fail_hint']}")
+            
+else:
+    # Pantalla final de victoria del protocolo
+    st.balloons()
+    st.markdown("""
+        <div style='background-color: #101018; border: 2px solid #00ff66; padding: 30px; text-align: center; border-radius: 5px;'>
+            <h1 style='color: #00ff66; font-family: monospace;'>[ PROTOCOLO COMPLETADO CON ÉXITO ]</h1>
+            <p style='font-family: monospace; color: #e0e0e6; font-size: 1.2rem; margin-top: 15px;'>
+                Has superado todos los filtros de seguridad y trampas lógicas implementadas.
+            </p>
+            <p style='font-family: monospace; color: #00ffff; font-size: 1.3rem; font-weight: bold; margin-top: 20px;'>
+                TU REGALO FÍSICO ESTÁ OCULTO EN: [Escribe aquí el escondite real del regalo]
+            </p>
+        </div>
+    """, unsafe_allow_html=True)
