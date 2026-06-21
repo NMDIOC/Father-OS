@@ -2,13 +2,13 @@ import streamlit as st
 import streamlit.components.v1 as components
 
 st.set_page_config(
-    page_title="FATHER-OS: ARCHITECTURE FIXED",
+    page_title="FATHER-OS: SYSTEM UNLOCKED",
     page_icon="🖥️",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
 
-# Ocultar UI de Streamlit
+# Ocultar elementos de interfaz nativos de Streamlit
 st.markdown("""
     <style>
         #MainMenu {visibility: hidden;}
@@ -139,32 +139,12 @@ father_os_interface = """
             box-shadow: 0 0 10px var(--neon-red);
         }
 
-        /* -------------------------------------------------- */
-        /* MOTOR DE ANIMACIÓN NATIVO POR HARDWARE (CSS)       */
-        /* -------------------------------------------------- */
-        @keyframes fillTo80 {
-            0% { width: 0%; }
-            100% { width: 80%; }
-        }
+        @keyframes fillTo80 { 0% { width: 0%; } 100% { width: 80%; } }
+        @keyframes fillTo100 { 0% { width: 0%; } 100% { width: 100%; } }
 
-        @keyframes fillTo100 {
-            0% { width: 0%; }
-            100% { width: 100%; }
-        }
-
-        /* Asignación directa de animaciones con retención de estado final (forwards) */
-        #bar-int {
-            animation: fillTo80 2.5s cubic-bezier(0.1, 0.85, 0.25, 1) forwards;
-        }
-
-        #bar-payaso {
-            animation: fillTo100 2.5s cubic-bezier(0.1, 0.85, 0.25, 1) forwards;
-        }
-
-        #bar-molestoso {
-            animation: fillTo100 2.5s cubic-bezier(0.1, 0.85, 0.25, 1) forwards;
-        }
-        /* -------------------------------------------------- */
+        #bar-int { animation: fillTo80 2.5s cubic-bezier(0.1, 0.85, 0.25, 1) forwards; }
+        #bar-payaso { animation: fillTo100 2.5s cubic-bezier(0.1, 0.85, 0.25, 1) forwards; }
+        #bar-molestoso { animation: fillTo100 2.5s cubic-bezier(0.1, 0.85, 0.25, 1) forwards; }
 
         .string-value {
             color: #00ffff;
@@ -176,6 +156,7 @@ father_os_interface = """
             margin-top: 2px;
         }
 
+        /* Consola optimizada para entrada de texto */
         .terminal {
             background: #050508;
             border: 1px solid var(--neon-green);
@@ -187,6 +168,7 @@ father_os_interface = """
             box-shadow: inset 0 0 15px rgba(0,0,0,0.9);
             font-size: 1.05rem;
             line-height: 1.5;
+            cursor: text;
         }
     </style>
 </head>
@@ -196,7 +178,7 @@ father_os_interface = """
 
     <div class="interface-container">
         <header>
-            <h1>[ STREAMLIT_CORE_v5.5: HARDWARE_GPU_RENDER ]</h1>
+            <h1>[ STREAMLIT_CORE_v6.0: DECRYPTION_MATRIX_READY ]</h1>
             <p>ESTADO_DEL_NÚCLEO: <span class="blink" style="color: var(--neon-green);">DYNAMIC_OK</span> | ID: PAPÁ_MAIN</p>
         </header>
 
@@ -235,24 +217,36 @@ father_os_interface = """
             </div>
         </div>
 
-        <div class="terminal" id="terminal-output"></div>
+        <div class="terminal" id="terminal-container">
+            <div id="terminal-output"></div>
+            
+            <div id="terminal-input-row" style="display: none; margin-top: 15px;">
+                <span style="color: var(--neon-green); font-weight: bold;">> INTRODUCE LA CLAVE DE 7 DÍGITOS:</span> 
+                <input type="text" id="terminal-key-input" maxlength="7" style="background: transparent; border: none; color: #00ffff; font-family: 'Courier New', monospace; font-size: 1.05rem; outline: none; width: 150px;" autocomplete="off" autofocus>
+            </div>
+
+            <div id="decryption-result" style="display: none; margin-top: 30px; border-top: 1px dashed #00ffff; padding-top: 20px; text-align: center;">
+                <p style="color: #00ffff; font-size: 0.85rem; font-family: monospace; margin-bottom: 10px;">[ TRANSMISIÓN DESENCRIPTADA ]</p>
+                <h1 style="color: #00ff66; font-size: 4rem; font-family: monospace; text-shadow: 0 0 25px rgba(0,255,102,0.7); animation: blinker 1.5s linear infinite;">BIEN :)</h1>
+            </div>
+        </div>
     </div>
 
     <script>
-        // Matrix Background (Asegurado con control de errores)
+        // Matrix Background
         const canvas = document.getElementById('bg-canvas');
         if (canvas) {
             const ctx = canvas.getContext('2d');
             function resizeCanvas() {
-                canvas.width = window.innerWidth || 800;
-                canvas.height = window.innerHeight || 600;
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
             }
             resizeCanvas();
             window.addEventListener('resize', resizeCanvas);
 
             const letters = '0123456789SYSTEMINITIALIZINGCORESTREAMLITOPTIMIZED';
             const fontSize = 14;
-            const columns = (canvas.width / fontSize) || 50;
+            const columns = canvas.width / fontSize;
             const drops = Array(Math.floor(columns)).fill(1);
 
             function drawMatrix() {
@@ -273,7 +267,7 @@ father_os_interface = """
             setInterval(drawMatrix, 33);
         }
 
-        // Script de terminal defensivo (No bloquea el render)
+        // Script de la terminal con llamada al Input interactivo
         const terminalText = [
             "> Inicializando subsistema de análisis de estadísticas familiares...",
             "> Procesando datos de entrada...",
@@ -283,10 +277,10 @@ father_os_interface = """
             "> Desplegando animaciones nativas CSS via GPU...",
             "> Datos validados correctamente.\n",
             "--------------------------------------------------",
-            "SISTEMA DE SEGURIDAD NÚCLEO: ESPERA ESTABLECIDA",
+            "SISTEMA DE SEGURIDAD NÚCLEO: ENCRIPTADO ACTIVADO",
             "--------------------------------------------------\n",
-            "> Esperando inyección del bloque de texto final...",
-            "> Listo para procesar la cadena de desencriptación personalizada."
+            "> El núcleo principal requiere autenticación externa de 7 dígitos.",
+            "> Completa el protocolo inferior para generar la firma criptográfica..."
         ];
 
         let lineIndex = 0;
@@ -294,43 +288,83 @@ father_os_interface = """
 
         function typeTerminal() {
             const terminal = document.getElementById('terminal-output');
-            if (!terminal) return;
+            const container = document.getElementById('terminal-container');
+            if (!terminal || !container) return;
 
             if (lineIndex < terminalText.length) {
                 let currentLine = terminalText[lineIndex];
                 if (charIndex < currentLine.length) {
                     terminal.innerHTML += currentLine.charAt(charIndex);
                     charIndex++;
-                    setTimeout(typeTerminal, 15); 
+                    setTimeout(typeTerminal, 12); 
                 } else {
                     terminal.innerHTML += "\\n";
                     lineIndex++;
                     charIndex = 0;
-                    setTimeout(typeTerminal, 150); 
+                    setTimeout(typeTerminal, 120); 
                 }
-                terminal.scrollTop = terminal.scrollHeight;
+                container.scrollTop = container.scrollHeight;
+            } else {
+                // Al finalizar las líneas de texto, se muestra el cuadro de entrada
+                const inputRow = document.getElementById('terminal-input-row');
+                const keyInput = document.getElementById('terminal-key-input');
+                if (inputRow && keyInput) {
+                    inputRow.style.display = 'block';
+                    keyInput.focus();
+                }
             }
         }
         setTimeout(typeTerminal, 400);
+
+        // Controlador lógico del Input de Desencriptación
+        setTimeout(() => {
+            const keyInput = document.getElementById('terminal-key-input');
+            const container = document.getElementById('terminal-container');
+            
+            if (container && keyInput) {
+                // Si hace click en la terminal, se re-enfoca el input automáticamente
+                container.addEventListener('click', () => keyInput.focus());
+                
+                keyInput.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter') {
+                        const val = this.value.trim();
+                        let termOut = document.getElementById('terminal-output');
+                        
+                        if (val === '9991100') {
+                            document.getElementById('terminal-input-row').style.display = 'none';
+                            termOut.innerHTML += "\\n\\n> [OK] FIRMA CORRECTA RECONOCIDA.\\n> COMPILANDO DIRECTIVA FINAL...";
+                            
+                            setTimeout(() => {
+                                document.getElementById('decryption-result').style.display = 'block';
+                                container.scrollTop = container.scrollHeight;
+                            }, 1000);
+                        } else {
+                            termOut.innerHTML += `\\n\\n> [ERROR] CLAVE "${val}" CORRUPTA o RECHAZADA.\\n> Acceso denegado. Introduce el código correcto del protocolo.`;
+                            this.value = '';
+                            container.scrollTop = container.scrollHeight;
+                        }
+                    }
+                });
+            }
+        }, 800);
     </script>
 </body>
 </html>
 """
 
-components.html(father_os_interface, height=1000, scrolling=False)
+components.html(father_os_interface, height=520, scrolling=False)
+
 
 # =============================================================================
-# MOTOR DE LA BÚSQUEDA DEL TESORO (PEGAR AL FINAL DEL ARCHIVO)
+# MOTOR DE LA BÚSQUEDA DEL TESORO (INTEGRADO BAJO EL IFRAME)
 # =============================================================================
 
 st.markdown("---")
 st.markdown("<h2 style='color: #00ff66; font-family: monospace; text-align: center;'>[ ACCESO A SUBRUTINA: BÚSQUEDA DEL TESORO ]</h2>", unsafe_allow_html=True)
 
-# Inicialización de la máquina de estados en Streamlit
 if 'hunt_level' not in st.session_state:
     st.session_state['hunt_level'] = 1
 
-# Base de datos criptográfica de preguntas trampa
 quiz_data = {
     1: {
         "rango": "MEDIO",
@@ -427,11 +461,9 @@ quiz_data = {
 
 current_step = st.session_state['hunt_level']
 
-# Interfaz de ejecución del juego
 if current_step <= len(quiz_data):
     node = quiz_data[current_step]
     
-    # Renderizado del panel de control del juego
     st.markdown(f"""
         <div style='background-color: #101018; border: 1px solid #00ff66; padding: 20px; border-radius: 5px; margin-bottom: 15px;'>
             <span style='background-color: {"#ff3333" if node["rango"] != "MEDIO" else "#00ff66"}; color: black; padding: 2px 6px; font-weight: bold; font-family: monospace;'>
@@ -442,7 +474,6 @@ if current_step <= len(quiz_data):
         </div>
     """, unsafe_allow_html=True)
     
-    # Input de datos y procesamiento
     user_ans = st.text_input("Introduce la clave de desencriptación:", key=f"hunt_in_{current_step}")
     
     if st.button("PROCESAR RESPUESTA ➔", key=f"btn_{current_step}"):
@@ -452,10 +483,9 @@ if current_step <= len(quiz_data):
             st.session_state['hunt_level'] += 1
             st.rerun()
         else:
-            st.error(f"ERROR DE VERIFICACIÓN. Código incorrecto.\n\nPISTA DEL SISTEMA: {node['fail_hint']}")
+            st.error(f"ERROR DE VERIFICACIÓN. Código incorrecto.\\n\\nPISTA DEL SISTEMA: {node['fail_hint']}")
             
 else:
-    # Pantalla final de victoria del protocolo
     st.balloons()
     st.markdown("""
         <div style='background-color: #101018; border: 2px solid #00ff66; padding: 30px; text-align: center; border-radius: 5px;'>
@@ -463,7 +493,18 @@ else:
             <p style='font-family: monospace; color: #e0e0e6; font-size: 1.2rem; margin-top: 15px;'>
                 Has superado todos los filtros de seguridad y trampas lógicas implementadas.
             </p>
-            <p style='font-family: monospace; color: #00ffff; font-size: 1.3rem; font-weight: bold; margin-top: 20px;'>
+            
+            <div style='background: rgba(0, 255, 102, 0.1); border: 1px dashed #00ff66; padding: 15px; margin: 20px auto; max-width: 550px;'>
+                <p style='font-family: monospace; color: #00ff66; font-size: 1.1rem; margin: 0;'>
+                    🔑 CLAVE GENERADA PARA CONSOLA SUPERIOR:
+                </p>
+                <h2 style='font-family: monospace; color: #00ffff; letter-spacing: 5px; margin: 10px 0; font-size: 2rem;'>9991100</h2>
+                <p style='font-family: monospace; color: #888899; font-size: 0.85rem; margin: 0;'>
+                    Introduce este código en el prompt interactivo de la consola de arriba para revelar el mensaje final.
+                </p>
+            </div>
+            
+            <p style='font-family: monospace; color: #00ffff; font-size: 1.2rem; font-weight: bold; margin-top: 20px;'>
                 TU REGALO FÍSICO ESTÁ OCULTO EN: [Escribe aquí el escondite real del regalo]
             </p>
         </div>
