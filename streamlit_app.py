@@ -3,7 +3,7 @@ import streamlit.components.v1 as components
 
 # Configuración de la aplicación Streamlit
 st.set_page_config(
-    page_title="FATHER-OS: CONFIGURACIÓN ACTUALIZADA",
+    page_title="FATHER-OS: REVISIÓN DE ANIMACIÓN",
     page_icon="🖥️",
     layout="wide",
     initial_sidebar_state="collapsed"
@@ -28,7 +28,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Interfaz con las nuevas métricas implementadas
+# Interfaz con animaciones corregidas y fix de texto
 father_os_interface = """
 <!DOCTYPE html>
 <html lang="es">
@@ -127,16 +127,16 @@ father_os_interface = """
             background: #1a1a26;
             height: 18px;
             border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
         }
 
         .bar-fill {
             height: 100%;
             background: var(--neon-green);
-            width: 0%; 
-            transition: width 2.5s cubic-bezier(0.1, 1, 0.1, 1);
+            width: 0%; /* Inicia en cero para la animación */
+            transition: width 2s cubic-bezier(0.1, 0.85, 0.25, 1); /* Curva de aceleración suave hacia la derecha */
         }
 
-        /* Estilo específico para sobrecarga crítica */
         .bar-fill.critical {
             background: var(--neon-red);
             box-shadow: 0 0 10px var(--neon-red);
@@ -172,24 +172,21 @@ father_os_interface = """
 
     <div class="interface-container">
         <header>
-            <h1>[ STREAMLIT_CORE_v4.2: DIAGNÓSTICO EN TIEMPO REAL ]</h1>
+            <h1>[ STREAMLIT_CORE_v4.3: DIAGNÓSTICO EN TIEMPO REAL ]</h1>
             <p>ESTADO_DEL_NÚCLEO: <span class="blink" style="color: var(--neon-green);">DYNAMIC_OK</span> | ID: PAPÁ_MAIN</p>
         </header>
 
-        <!-- PANEL DE ATRIBUTOS MODIFICADO -->
         <div class="panel">
             <h2 class="stats-title">> MÉTRICAS_DE_RENDIMIENTO</h2>
             
-            <!-- Inteligencia -->
             <div class="stat-row">
                 <div class="stat-header">
                     <label>INTELIGENCIA:</label>
                     <span>80/100</span>
                 </div>
-                <div class="bar-container"><div class="bar-fill" data-width="80%"></div></div>
+                <div class="bar-container"><div class="bar-fill" id="bar-int" data-width="80%"></div></div>
             </div>
 
-            <!-- Modo Adaptativo -->
             <div class="stat-row">
                 <div class="stat-header">
                     <label>MODO ADAPTATIVO:</label>
@@ -197,26 +194,23 @@ father_os_interface = """
                 <div class="string-value">"Adaptate TU !"</div>
             </div>
 
-            <!-- Nivel de pagaso -->
             <div class="stat-row">
                 <div class="stat-header">
-                    <label>NIVEL DE PAGASO:</label>
+                    <label>NIVEL DE PAYASO:</label>
                     <span>100/100</span>
                 </div>
-                <div class="bar-container"><div class="bar-fill" data-width="100%"></div></div>
+                <div class="bar-container"><div class="bar-fill" id="bar-payaso" data-width="100%"></div></div>
             </div>
 
-            <!-- Molestoso (Sobrecarga de Sistema) -->
             <div class="stat-row">
                 <div class="stat-header" style="color: var(--neon-red);">
                     <label>MOLESTOSO:</label>
                     <span class="blink">999/100 [CRITICAL]</span>
                 </div>
-                <div class="bar-container"><div class="bar-fill critical" data-width="100%"></div></div>
+                <div class="bar-container"><div class="bar-fill critical" id="bar-molestoso" data-width="100%"></div></div>
             </div>
         </div>
 
-        <!-- TERMINAL DE COMANDOS (Estructura base lista) -->
         <div class="terminal" id="terminal-output"></div>
     </div>
 
@@ -254,22 +248,23 @@ father_os_interface = """
         }
         setInterval(drawMatrix, 33);
 
-        // Carga síncrona de las barras de progreso
-        window.onload = () => {
-            setTimeout(() => {
-                document.querySelectorAll('.bar-fill').forEach(bar => {
-                    bar.style.width = bar.getAttribute('data-width');
-                });
-            }, 300);
-            typeTerminal();
-        };
+        // EJECUCIÓN FORZADA DE ANIMACIÓN DE BARRAS HACIA LA DERECHA
+        // Cambiado de window.onload a ejecutor directo con retraso de 100ms para asegurar el render
+        setTimeout(() => {
+            document.getElementById('bar-int').style.width = "80%";
+            document.getElementById('bar-payaso').style.width = "100%";
+            document.getElementById('bar-molestoso').style.width = "100%";
+        }, 100);
 
-        // Servidor temporal de texto para la consola (Estructura base)
+        // Inicialización de Terminal
+        setTimeout(typeTerminal, 500);
+
         const terminalText = [
             "> Inicializando subsistema de análisis de estadísticas familiares...",
             "> Procesando datos de entrada...",
             "> [ALERTA] Desbordamiento de enteros detectado en el parámetro: MOLESTOSO.",
             "> Reconfigurando búfer para admitir magnitudes superiores a 999...",
+            "> Corrigiendo cadenas de caracteres: 'PAGASO' -> 'PAYASO'...",
             "> Datos validados correctamente.\n",
             "--------------------------------------------------",
             "SISTEMA DE SEGURIDAD NÚCLEO: ESPERA ESTABLECIDA",
