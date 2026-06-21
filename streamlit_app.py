@@ -170,7 +170,6 @@ father_os_interface = """
             cursor: text;
         }
 
-        /* Corrección estricta de visibilidad para el input */
         #terminal-key-input {
             background: transparent !important;
             border: none !important;
@@ -239,9 +238,9 @@ father_os_interface = """
                 <input type="text" id="terminal-key-input" maxlength="7" autocomplete="off" autofocus>
             </div>
 
-            <div id="decryption-result" style="display: none; margin-top: 30px; border-top: 1px dashed #00ffff; padding-top: 20px; text-align: center;">
-                <p style="color: #00ffff; font-size: 0.85rem; font-family: monospace; margin-bottom: 10px;">[ TRANSMISIÓN DESENCRIPTADA ]</p>
-                <h1 style="color: #00ff66; font-size: 4rem; font-family: monospace; text-shadow: 0 0 25px rgba(0,255,102,0.7); animation: blinker 1.5s linear infinite;">BIEN :)</h1>
+            <div id="decryption-result" style="display: none; margin-top: 30px; border-top: 1px dashed #00ffff; padding-top: 20px; text-align: left;">
+                <p style="color: #00ffff; font-size: 0.85rem; font-family: monospace; margin-bottom: 12px;">[ TRANSMISIÓN DESENCRIPTADA ]</p>
+                <p style="color: #00ff66; font-size: 1.25rem; font-family: 'Courier New', monospace; text-shadow: 0 0 10px rgba(0,255,102,0.5); line-height: 1.6;">Gracias, papá, por apoyarme siempre en mis descubrimientos y proyectos, desde mis metas en la programación hasta nuestra visión compartida de invertir en el ETF SPYG para nuestro futuro.</p>
             </div>
         </div>
     </div>
@@ -496,6 +495,5 @@ if current_step <= len(quiz_data):
             
 else:
     st.balloons()
-    # Cadena HTML continua corregida para evitar fallos de indentación en el parser de Markdown
-    victory_html = "<div style='background-color: #101018; border: 2px solid #00ff66; padding: 30px; text-align: center; border-radius: 5px;'><h1 style='color: #00ff66; font-family: monospace;'>[ PROTOCOLO COMPLETADO CON ÉXITO ]</h1><p style='font-family: monospace; color: #e0e0e6; font-size: 1.2rem; margin-top: 15px;'>Has superado todos los filtros de seguridad y trampas lógicas implementadas.</p><div style='background: rgba(0, 255, 102, 0.1); border: 1px dashed #00ff66; padding: 15px; margin: 20px auto; max-width: 550px;'><p style='font-family: monospace; color: #00ff66; font-size: 1.1rem; margin: 0;'>🔑 CLAVE GENERADA PARA CONSOLA SUPERIOR:</p><h2 style='font-family: monospace; color: #00ffff; letter-spacing: 5px; margin: 10px 0; font-size: 2rem;'>9991100</h2><p style='font-family: monospace; color: #888899; font-size: 0.85rem; margin: 0;'>Introduce este código en el prompt interactivo de la consola de arriba para revelar el mensaje final.</p></div><p style='font-family: monospace; color: #00ffff; font-size: 1.2rem; font-weight: bold; margin-top: 20px;'>TU REGALO FÍSICO ESTÁ OCULTO EN: [Escribe aquí el escondite real del regalo]</p></div>"
+    victory_html = "<div style='background-color: #101018; border: 2px solid #00ff66; padding: 30px; text-align: center; border-radius: 5px;'><h1 style='color: #00ff66; font-family: monospace;'>[ PROTOCOLO COMPLETADO CON ÉXITO ]</h1><p style='font-family: monospace; color: #e0e0e6; font-size: 1.2rem; margin-top: 15px;'>Has superado todos los filtros de seguridad y trampas lógicas implementadas.</p><div style='background: rgba(0, 255, 102, 0.1); border: 1px dashed #00ff66; padding: 15px; margin: 20px auto; max-width: 550px;'><p style='font-family: monospace; color: #00ff66; font-size: 1.1rem; margin: 0;'>🔑 CLAVE GENERADA PARA CONSOLA SUPERIOR:</p><h2 style='font-family: monospace; color: #00ffff; letter-spacing: 5px; margin: 10px 0; font-size: 2rem;'>9991100</h2><p style='font-family: monospace; color: #888899; font-size: 0.85rem; margin: 0;'>Introduce este código en el prompt interactivo de la consola de arriba para revelar el mensaje final.</p></div><p style='font-family: monospace; color: #00ffff; font-size: 1.2rem; font-weight: bold; margin-top: 20px;'>TU REGALO FÍSICO ESTÁ OCULTO EN: <span style='color: #00ff66;'>dentro de mi primer robot Arduino</span></p></div>"
     st.markdown(victory_html, unsafe_allow_html=True)
