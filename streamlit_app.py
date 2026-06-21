@@ -1,15 +1,13 @@
 import streamlit as st
 import streamlit.components.v1 as components
 
-# Configuración de la aplicación Streamlit
 st.set_page_config(
-    page_title="FATHER-OS: REVISIÓN DE ANIMACIÓN",
+    page_title="FATHER-OS: SOLUCIÓN RENDER",
     page_icon="🖥️",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
 
-# Inyección de CSS para ocultar elementos nativos de Streamlit
 st.markdown("""
     <style>
         #MainMenu {visibility: hidden;}
@@ -28,7 +26,6 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Interfaz con animaciones corregidas y fix de texto
 father_os_interface = """
 <!DOCTYPE html>
 <html lang="es">
@@ -127,14 +124,13 @@ father_os_interface = """
             background: #1a1a26;
             height: 18px;
             border: 1px solid rgba(255,255,255,0.1);
-            position: relative;
         }
 
         .bar-fill {
             height: 100%;
             background: var(--neon-green);
-            width: 0%; /* Inicia en cero para la animación */
-            transition: width 2s cubic-bezier(0.1, 0.85, 0.25, 1); /* Curva de aceleración suave hacia la derecha */
+            width: 0%; 
+            transition: width 2.5s cubic-bezier(0.1, 0.85, 0.25, 1);
         }
 
         .bar-fill.critical {
@@ -172,7 +168,7 @@ father_os_interface = """
 
     <div class="interface-container">
         <header>
-            <h1>[ STREAMLIT_CORE_v4.3: DIAGNÓSTICO EN TIEMPO REAL ]</h1>
+            <h1>[ STREAMLIT_CORE_v4.4: REFLUX_RESOLVED ]</h1>
             <p>ESTADO_DEL_NÚCLEO: <span class="blink" style="color: var(--neon-green);">DYNAMIC_OK</span> | ID: PAPÁ_MAIN</p>
         </header>
 
@@ -184,7 +180,7 @@ father_os_interface = """
                     <label>INTELIGENCIA:</label>
                     <span>80/100</span>
                 </div>
-                <div class="bar-container"><div class="bar-fill" id="bar-int" data-width="80%"></div></div>
+                <div class="bar-container"><div class="bar-fill" id="bar-int"></div></div>
             </div>
 
             <div class="stat-row">
@@ -199,7 +195,7 @@ father_os_interface = """
                     <label>NIVEL DE PAYASO:</label>
                     <span>100/100</span>
                 </div>
-                <div class="bar-container"><div class="bar-fill" id="bar-payaso" data-width="100%"></div></div>
+                <div class="bar-container"><div class="bar-fill" id="bar-payaso"></div></div>
             </div>
 
             <div class="stat-row">
@@ -207,7 +203,7 @@ father_os_interface = """
                     <label>MOLESTOSO:</label>
                     <span class="blink">999/100 [CRITICAL]</span>
                 </div>
-                <div class="bar-container"><div class="bar-fill critical" id="bar-molestoso" data-width="100%"></div></div>
+                <div class="bar-container"><div class="bar-fill critical" id="bar-molestoso"></div></div>
             </div>
         </div>
 
@@ -215,7 +211,6 @@ father_os_interface = """
     </div>
 
     <script>
-        // Matrix Background Engine
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
 
@@ -248,16 +243,16 @@ father_os_interface = """
         }
         setInterval(drawMatrix, 33);
 
-        // EJECUCIÓN FORZADA DE ANIMACIÓN DE BARRAS HACIA LA DERECHA
-        // Cambiado de window.onload a ejecutor directo con retraso de 100ms para asegurar el render
+        // FORZADO DE ANIMACIÓN DE CARGA (Solución al estado vacío)
         setTimeout(() => {
-            document.getElementById('bar-int').style.width = "80%";
-            document.getElementById('bar-payaso').style.width = "100%";
-            document.getElementById('bar-molestoso').style.width = "100%";
-        }, 100);
+            requestAnimationFrame(() => {
+                document.getElementById('bar-int').style.width = "80%";
+                document.getElementById('bar-payaso').style.width = "100%";
+                document.getElementById('bar-molestoso').style.width = "100%";
+            });
+        }, 300);
 
-        // Inicialización de Terminal
-        setTimeout(typeTerminal, 500);
+        setTimeout(typeTerminal, 600);
 
         const terminalText = [
             "> Inicializando subsistema de análisis de estadísticas familiares...",
@@ -298,5 +293,4 @@ father_os_interface = """
 </html>
 """
 
-# Renderizado del layout
 components.html(father_os_interface, height=1000, scrolling=False)
